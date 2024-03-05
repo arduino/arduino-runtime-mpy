@@ -1,0 +1,14 @@
+{
+  "urls": [
+    [
+      "arduino/__init__.py",
+      "github:arduino/arduino-framework-mpy/arduino-runtime-mpy/arduino/__init__.py"
+    ],
+    [
+      "arduino/arduino.py",
+      "github:arduino/arduino-framework-mpy/arduino-runtime-mpy/arduino/arduino.py"
+    ]
+  ],
+  "deps": [],
+  "version": "0.1.0"
+}
