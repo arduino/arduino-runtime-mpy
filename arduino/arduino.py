@@ -38,8 +38,11 @@ def lerp(start, stop, amount):
   return start + amount * (stop - start)
 
 # IO
-def pinMode(_pin, _mode):
+def pin_mode(_pin, _mode):
   return Pin(_pin, _mode)
+
+def pinMode(_pin, _mode):
+  return pin_mode(_pin, _mode)
 
 def digital_write(_pin, _signal):
   p = Pin(_pin, Pin.OUT)
