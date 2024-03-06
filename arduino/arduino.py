@@ -78,6 +78,30 @@ def delay(_ms):
   sleep_ms(_ms)
 
 
+# HELPERS
+def create_new_sketch(sketch_name = None, path = '.'):
+
+  new_sketch_path = f'{path}/{sketch_name}.py'
+  try:
+    open(new_sketch_path, 'x')
+  except OSError:
+    sketch_name = f'{sketch_name}_{ticks_us()}'
+  
+  if sketch_name is None:
+    sketch_name = f'main_{ticks_us()}.py'
+  template_path = '/'.join(__file__.split('/')[:-1]) + '/template.py'
+  template_sketch = open(template_path, 'r')
+  new_sketch_path = f'{path}/{sketch_name}.py'
+
+  with open(f'{path}/{sketch_name}.py', 'w') as f:
+    sketch_line = None
+    while sketch_line is not '':
+      sketch_line = template_sketch.readline()
+      f.write(sketch_line)
+  f.close()
+  template_sketch.close()
+  return new_sketch_path
+
 # the following methods are just for testing
 # will produce output when this module is run as __main__
 def preload():
