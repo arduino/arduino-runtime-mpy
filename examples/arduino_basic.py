@@ -1,16 +1,25 @@
+# Any Arduino board
+#   
+# Blinking LED
+#   
+# Author: Ubi de Feo
+#   
+#   This example shows how to blink the onboard LED of an Arduino board.
+#   The LED will stay on for 500ms and off for 500ms, then the cycle repeats
+#   creating a blinking effect.
+#   
+
 from arduino import *
 
-led_pin = 10
-
+led = 'LED_BUILTIN'
 def setup():
   print('starting my program')
-  pinMode(led_pin, OUTPUT)
 
 def loop():
   print('loopy loop')
-  digitalWrite(led_pin, HIGH)
-  delay(1000)
-  digitalWrite(led_pin, LOW)
-  delay(1000)
+  digitalWrite(led, HIGH)
+  delay(500)
+  digitalWrite(led, LOW)
+  delay(500)
 
 start(setup, loop)
