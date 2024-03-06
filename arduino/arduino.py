@@ -1,3 +1,8 @@
+__author__ = "ubi de feo / murilo polese"
+__license__ = "MPL 2.0"
+__version__ = "0.1.0"
+__maintainer__ = "Arduino"
+
 from machine import Pin, ADC, PWM
 from time import sleep_ms, ticks_us
 from random import randrange
@@ -36,22 +41,28 @@ def lerp(start, stop, amount):
 def pinMode(_pin, _mode):
   return Pin(_pin, _mode)
 
-def digitalWrite(_pin, _signal):
+def digital_write(_pin, _signal):
   p = Pin(_pin, Pin.OUT)
   p.value(_signal)
 
-def digitalRead(_pin):
+def digitalWrite(_pin, _signal):
+  return digital_write(_pin, _signal)
+
+def digital_read(_pin):
   p = Pin(_pin, Pin.IN)
   return p.value()
 
-def delay(_ms):
-  sleep_ms(_ms)
+def digitalRead(_pin):
+  return digital_read(_pin)
 
-def analogRead(_pin):
+def analog_read(_pin):
   p = ADC(Pin(_pin))
   return p.read_u16()
 
-def analogWrite(_pin, _duty_cycle):
+def analogRead(_pin):
+  return analog_read(_pin)
+
+def analog_write(_pin, _duty_cycle):
   p = PWM(Pin(_pin))
   p.freq(1000)
   duty = mapi(_duty_cycle, 0, 255, 0, 1023)
@@ -59,6 +70,13 @@ def analogWrite(_pin, _duty_cycle):
   if(_duty_cycle == 0):
     p.duty(0)
     p.deinit()
+
+def analogWrite(_pin, _duty_cycle):
+  return analog_write(_pin, _duty_cycle)
+
+def delay(_ms):
+  sleep_ms(_ms)
+
 
 # the following methods are just for testing
 # will produce output when this module is run as __main__
