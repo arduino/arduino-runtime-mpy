@@ -1,17 +1,8 @@
 {
   "urls": [
-    [
-      "arduino/__init__.py",
-      "github:arduino/arduino-framework-mpy/arduino-runtime-mpy/arduino/__init__.py"
-    ],
-    [
-      "arduino/arduino.py",
-      "github:arduino/arduino-framework-mpy/arduino-runtime-mpy/arduino/arduino.py"
-    ],
-    [
-      "arduino/template.py",
-      "github:arduino/arduino-framework-mpy/arduino-runtime-mpy/arduino/template.py"
-    ]
+    ["arduino/__init__.py", "github:arduino/arduino-runtime-mpy/arduino/__init__.py"],
+    ["arduino/arduino.py", "github:arduino/arduino-runtime-mpy/arduino/arduino.py"],
+    ["arduino/template.py", "github:arduino/arduino-runtime-mpy/arduino/template.py"]
   ],
   "deps": [],
   "version": "0.2.0"
