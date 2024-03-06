@@ -3,6 +3,7 @@
 A module to simplify and help writing MicroPython programs using the setup()/loop() paradigm.
 
 ## Commands
+
 This module also wraps machine functions in easy-to-use methods
 
 ### pin_mode(PIN_NUMBER/ID, MODE)
@@ -31,7 +32,6 @@ digital_read('A3')
 
 return a value of `1` or `0` depending on the signal attached to the specified pins, for instance a button or a digital sensor.
 
-
 ### digital_write(PIN_NUMBER/ID, VALUE)
 
 Writes the digital value (`HIGH|LOW|True|False|1|0`) to the pin with Number or ID specified.
@@ -44,7 +44,6 @@ digital_write('A3', 0)
 ```
 
 Will set the pin to the specified value.
-
 
 ### analog_read(PIN_NUMBER/ID)
 
@@ -75,7 +74,7 @@ analog_write('A3', 64)
 Will generate a modulated signal on the specified Pin.
 Can be used to control small motors with low current needs as well as servo motors.
 
-#### IMPORTANT:
+#### IMPORTANT
 
 The numeric value for PIN_NUMBER is usually the processor's GPIO number, while values enclosed in quotes are "named pins" and are platform/implementation specific, not guaranteed to be valid.
 A `ValueError` exception with label "invalid pin" is thrown if the pin number or ID is not valid.
@@ -84,7 +83,6 @@ A `ValueError` exception with label "invalid pin" is thrown if the pin number or
 
 Will halt the execution of your program for the amount of _milliseconds_ specified in the parameter.
 It is to be considered a code-blocking command.
-
 
 ## Usage
 
@@ -134,9 +132,11 @@ This brings the implemented runtime commands to the three described below
 Is run _once_ and should contain initialisation code.
 
 ### loop()
+
 Is run indefinitely until the program stops.
 
 ### cleanup()
+
 Is run _once_ when the program stops.
 It should contain code such as resetting the value of variables, stopping timers, causing threads to stop running.
 
@@ -161,6 +161,7 @@ start(setup, loop)
 ## Utilities
 
 Some utility methods are provided and are still in development:
+
 * `map(x, in_min, in_max, out_min, out_max)`
   will remap the value `x` from its input range to an output range
 * `mapi(x, in_min, in_max, out_min, out_max)`
@@ -187,4 +188,3 @@ create_sketch('main')
 
 If the destination `.py` file exists, a timestamp in _microseconds_ will be appended to the name.
 The method returns the Python file's full path.
-
