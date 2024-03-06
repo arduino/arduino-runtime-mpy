@@ -174,15 +174,15 @@ Some utility methods are provided and are still in development:
 
 ## Convenience and scaffolding methods
 
-### create_project(PROJECT_NAME, PATH)
+### create_sketch(SKETCH_NAME, PATH)
 
 Will create a new Python file (`.py`) with the specified name at the provided path.
 Example:
 
 ```Python
-create_project('my_arduino_sketch')
-create_project('my_arduino_sketch', 'tmp')
-create_project('main')
+create_sketch('my_arduino_sketch')
+create_sketch('my_arduino_sketch', 'tmp')
+create_sketch('main')
 ```
 
 If the destination `.py` file exists, a timestamp in _microseconds_ will be appended to the name.

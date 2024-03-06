@@ -82,21 +82,23 @@ def delay(_ms):
 
 
 # HELPERS
-def create_new_sketch(sketch_name = None, path = '.'):
+def create_sketch(sketch_name = None, path = '.', overwrite = False):
 
+  if sketch_name is None:
+    sketch_name = 'main'
   new_sketch_path = f'{path}/{sketch_name}.py'
   try:
-    open(new_sketch_path, 'x')
+    open(new_sketch_path, 'r')
+    if not overwrite:
+      sketch_name = f'{sketch_name}_{ticks_us()}'
   except OSError:
-    sketch_name = f'{sketch_name}_{ticks_us()}'
+    pass
   
-  if sketch_name is None:
-    sketch_name = f'main_{ticks_us()}.py'
   template_path = '/'.join(__file__.split('/')[:-1]) + '/template.py'
   template_sketch = open(template_path, 'r')
   new_sketch_path = f'{path}/{sketch_name}.py'
 
-  with open(f'{path}/{sketch_name}.py', 'w') as f:
+  with open(new_sketch_path, 'w') as f:
     sketch_line = None
     while sketch_line is not '':
       sketch_line = template_sketch.readline()
