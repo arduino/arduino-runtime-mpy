@@ -81,22 +81,29 @@ fi
 
 existing_files=$(mpremote fs ls ":/${LIBDIR}/${PKGDIR}")
 
-for py in $SRCDIR/*; do
-    f_name=`basename $py`
-    if [ "$ext" = "mpy" ]; then
+for filename in $SRCDIR/*; do
+    f_name=`basename $filename`
+    source_extension="${f_name##*.}"
+    destination_extension=$source_extension
+
+    if [ "$ext" = "mpy" ] && [ "$source_extention" = "py" ]; then
       echo "Compiling $SRCDIR/$f_name to $SRCDIR/${f_name%.*}.$ext"
       mpy-cross "$SRCDIR/$f_name"
+      destination_extension=$ext
     fi
     
-    if [[ $existing_files == *"${f_name%.*}.py"* ]]; then
-      delete_file ":/${LIBDIR}/$PKGDIR/${f_name%.*}.py"
+    # Make sure previous versions of the given file are deleted.
+    if [[ $existing_files == *"${f_name%.*}.$source_extension"* ]]; then
+      delete_file ":/${LIBDIR}/$PKGDIR/${f_name%.*}.$source_extension"
     fi
 
-    if [[ $existing_files == *"${f_name%.*}.mpy"* ]]; then
+    # Check if source file has a .py extension and if a .mpy file exists on the board
+    if [ "$source_extension" = "py" ] && [[ $existing_files == *"${f_name%.*}.mpy"* ]]; then
       delete_file ":/${LIBDIR}/$PKGDIR/${f_name%.*}.mpy"
     fi
 
-    copy_file $SRCDIR/${f_name%.*}.$ext ":/${LIBDIR}/$PKGDIR/${f_name%.*}.$ext"
+    # Copy either the .py or .mpy file to the board depending on the chosen option
+    copy_file $SRCDIR/${f_name%.*}.$destination_extension ":/${LIBDIR}/$PKGDIR/${f_name%.*}.$destination_extension"
 done
 
 if [ "$ext" = "mpy" ]; then
