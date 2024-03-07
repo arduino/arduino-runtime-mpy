@@ -74,15 +74,17 @@ analog_write('A3', 64)
 Will generate a modulated signal on the specified Pin.
 Can be used to control small motors with low current needs as well as servo motors.
 
-#### IMPORTANT
-
-The numeric value for PIN_NUMBER is usually the processor's GPIO number, while values enclosed in quotes are "named pins" and are platform/implementation specific, not guaranteed to be valid.
-A `ValueError` exception with label "invalid pin" is thrown if the pin number or ID is not valid.
+> [!IMPORTANT]  
+> The numeric value for PIN_NUMBER is usually the processor's GPIO number, while values enclosed in quotes are "named pins" and are platform/implementation specific, not guaranteed to be valid. A `ValueError` exception with label "invalid pin" is thrown if the pin number or ID is not valid.
 
 ### delay(MILLISECONDS)
 
 Will halt the execution of your program for the amount of _milliseconds_ specified in the parameter.
 It is to be considered a code-blocking command.
+
+```Python
+delay(1000) # Delay the execution for 1 second
+```
 
 ## Usage
 
@@ -137,7 +139,7 @@ Is run indefinitely until the program stops.
 
 ### cleanup()
 
-Is run _once_ when the program stops.
+Is run _once_ when the program stops. This happen either when the user manually stops the execution of the program or if an error in the user code is thrown.
 It should contain code such as resetting the value of variables, stopping timers, causing threads to stop running.
 
 A `cleanup()` enchanced version of our initial program would look like this
@@ -158,6 +160,9 @@ def cleanup():
 start(setup, loop)
 ```
 
+> [!NOTE]
+> `cleanup()` does not get called when the program stops because the hardware button on the board was pressed.
+
 ## Utilities
 
 Some utility methods are provided and are still in development:
@@ -175,9 +180,11 @@ Some utility methods are provided and are still in development:
 
 ## Convenience and scaffolding methods
 
-### create_sketch(SKETCH_NAME, PATH)
+### create_sketch(sketch_name = None, destination_path = '.', overwrite = False, source = None)
 
 Will create a new Python file (`.py`) with the specified name at the provided path.
+By default if a file with the same name is found, it will append a timestamp, but overwrite can be forced to True.
+Providing a source path it will use that file's content, effectively copying the code from one file to the newly created one.
 Example:
 
 ```Python
@@ -186,5 +193,8 @@ create_sketch('my_arduino_sketch', 'tmp')
 create_sketch('main')
 ```
 
-If the destination `.py` file exists, a timestamp in _microseconds_ will be appended to the name.
 The method returns the Python file's full path.
+
+### dcopy_sketch(source_path = '', destination_path = '.', name = None, overwrite = False):
+
+Wraps create_sketch() and provides a shortcut to copy a file onto another file

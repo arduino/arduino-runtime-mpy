@@ -82,11 +82,16 @@ def delay(_ms):
 
 
 # HELPERS
-def create_sketch(sketch_name = None, path = '.', overwrite = False):
+
+def get_template():
+  return '/'.join(__file__.split('/')[:-1]) + '/template.tpl'
+
+
+def create_sketch(sketch_name = None, destination_path = '.', overwrite = False, source_path = None):
 
   if sketch_name is None:
     sketch_name = 'main'
-  new_sketch_path = f'{path}/{sketch_name}.py'
+  new_sketch_path = f'{destination_path}/{sketch_name}.py'
   try:
     open(new_sketch_path, 'r')
     if not overwrite:
@@ -94,9 +99,9 @@ def create_sketch(sketch_name = None, path = '.', overwrite = False):
   except OSError:
     pass
   
-  template_path = '/'.join(__file__.split('/')[:-1]) + '/template.py'
+  template_path = get_template() if source is None else source
   template_sketch = open(template_path, 'r')
-  new_sketch_path = f'{path}/{sketch_name}.py'
+  new_sketch_path = f'{destination_path}/{sketch_name}.py'
 
   with open(new_sketch_path, 'w') as f:
     sketch_line = None
@@ -106,6 +111,10 @@ def create_sketch(sketch_name = None, path = '.', overwrite = False):
   f.close()
   template_sketch.close()
   return new_sketch_path
+
+def copy_sketch(source_path = '', destination_path = '.', name = None, overwrite = False):
+  name = name or 'main'
+  return create_sketch(sketch_name = name, destination_path = destination_path, overwrite = overwrite, source_path = source_path)
 
 # the following methods are just for testing
 # will produce output when this module is run as __main__
