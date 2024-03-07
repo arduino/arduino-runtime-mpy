@@ -195,6 +195,6 @@ create_sketch('main')
 
 The method returns the Python file's full path.
 
-### dcopy_sketch(source_path = '', destination_path = '.', name = None, overwrite = False):
+### copy_sketch(source_path = '', destination_path = '.', name = None, overwrite = False):
 
 Wraps create_sketch() and provides a shortcut to copy a file onto another file
