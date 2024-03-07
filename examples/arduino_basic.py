@@ -17,9 +17,9 @@ def setup():
 
 def loop():
   print('loopy loop')
-  digitalWrite(led, HIGH)
+  digital_write(led, HIGH)
   delay(500)
-  digitalWrite(led, LOW)
+  digital_write(led, LOW)
   delay(500)
 
 start(setup, loop)

@@ -34,9 +34,9 @@ def blink_me(_timer):
 	print('blink')
 	led_builtin_state = not led_builtin_state
 	if led_builtin_state:
-		digitalWrite(led_builtin, HIGH)
+		digital_write(led_builtin, HIGH)
 	else:
-		digitalWrite(led_builtin, LOW)
+		digital_write(led_builtin, LOW)
 
 def timed_message(_timer):
   print('hello')
@@ -47,16 +47,16 @@ def setup():
   message_timer.init(period = 2000, mode = Timer.PERIODIC, callback = timed_message)
 
 def loop():
-  if digitalRead(button):
-    digitalWrite(led_red, LOW)
+  if digital_read(button):
+    digital_write(led_red, LOW)
   else:
-    digitalWrite(led_red, HIGH)  
+    digital_write(led_red, HIGH)  
 
 def cleanup():
   print("*** cleaning up ***")
   blink_timer.deinit()
   message_timer.deinit()
-  digitalWrite(led_builtin, LOW)
-  digitalWrite(led_red, HIGH)
+  digital_write(led_builtin, LOW)
+  digital_write(led_red, HIGH)
 
 start(setup, loop, cleanup)
