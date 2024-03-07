@@ -84,7 +84,7 @@ def delay(_ms):
 # HELPERS
 
 def get_template():
-  return '/'.join(__file__.split('/')[:-1]) + '/template.py'
+  return '/'.join(__file__.split('/')[:-1]) + '/template.tpl'
 
 
 def create_sketch(sketch_name = None, destination_path = '.', overwrite = False, source_path = None):
