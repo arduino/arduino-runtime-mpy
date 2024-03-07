@@ -74,15 +74,17 @@ analog_write('A3', 64)
 Will generate a modulated signal on the specified Pin.
 Can be used to control small motors with low current needs as well as servo motors.
 
-#### IMPORTANT
-
-The numeric value for PIN_NUMBER is usually the processor's GPIO number, while values enclosed in quotes are "named pins" and are platform/implementation specific, not guaranteed to be valid.
-A `ValueError` exception with label "invalid pin" is thrown if the pin number or ID is not valid.
+> [!IMPORTANT]  
+> The numeric value for PIN_NUMBER is usually the processor's GPIO number, while values enclosed in quotes are "named pins" and are platform/implementation specific, not guaranteed to be valid. A `ValueError` exception with label "invalid pin" is thrown if the pin number or ID is not valid.
 
 ### delay(MILLISECONDS)
 
 Will halt the execution of your program for the amount of _milliseconds_ specified in the parameter.
 It is to be considered a code-blocking command.
+
+```Python
+delay(1000) # Delay the execution for 1 second
+```
 
 ## Usage
 
@@ -137,7 +139,7 @@ Is run indefinitely until the program stops.
 
 ### cleanup()
 
-Is run _once_ when the program stops.
+Is run _once_ when the program stops. This happen either when the user manually stops the execution of the program or if an error in the user code is thrown.
 It should contain code such as resetting the value of variables, stopping timers, causing threads to stop running.
 
 A `cleanup()` enchanced version of our initial program would look like this
@@ -157,6 +159,9 @@ def cleanup():
 
 start(setup, loop)
 ```
+
+> [!NOTE]
+> `cleanup()` does not get called when the program stops because the hardware button on the board was pressed.
 
 ## Utilities
 
