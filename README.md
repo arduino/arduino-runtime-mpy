@@ -175,9 +175,11 @@ Some utility methods are provided and are still in development:
 
 ## Convenience and scaffolding methods
 
-### create_sketch(SKETCH_NAME, PATH)
+### create_sketch(sketch_name = None, destination_path = '.', overwrite = False, source = None)
 
 Will create a new Python file (`.py`) with the specified name at the provided path.
+By default if a file with the same name is found, it will append a timestamp, but overwrite can be forced to True.
+Providing a source path it will use that file's content, effectively copying the code from one file to the newly created one.
 Example:
 
 ```Python
@@ -186,5 +188,8 @@ create_sketch('my_arduino_sketch', 'tmp')
 create_sketch('main')
 ```
 
-If the destination `.py` file exists, a timestamp in _microseconds_ will be appended to the name.
 The method returns the Python file's full path.
+
+### dcopy_sketch(source_path = '', destination_path = '.', name = None, overwrite = False):
+
+Wraps create_sketch() and provides a shortcut to copy a file onto another file

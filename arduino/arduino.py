@@ -87,7 +87,7 @@ def get_template():
   return '/'.join(__file__.split('/')[:-1]) + '/template.py'
 
 
-def create_sketch(sketch_name = None, destination_path = '.', overwrite = False, source = None):
+def create_sketch(sketch_name = None, destination_path = '.', overwrite = False, source_path = None):
 
   if sketch_name is None:
     sketch_name = 'main'
@@ -114,7 +114,7 @@ def create_sketch(sketch_name = None, destination_path = '.', overwrite = False,
 
 def copy_sketch(source_path = '', destination_path = '.', name = None, overwrite = False):
   name = name or 'main'
-  return create_sketch(sketch_name = name, destination_path = destination_path, overwrite = overwrite, source = source_path)
+  return create_sketch(sketch_name = name, destination_path = destination_path, overwrite = overwrite, source_path = source_path)
 
 # the following methods are just for testing
 # will produce output when this module is run as __main__
