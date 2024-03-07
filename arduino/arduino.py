@@ -129,10 +129,19 @@ def cleanup():
   print()
 
   
-def frame_counter(_arg):
+def frame_counter():
   global frame_count
   frame_count += 1
-  sleep_ms(1)
+  try:
+    sleep_ms(1)
+    return True
+  except (Exception, KeyboardInterrupt) as e:
+    if cleanup is not None:
+        cleanup()
+    if not isinstance(e, KeyboardInterrupt):
+      raise e
+    return False
+    
 
 # RUNTIME
 def start(setup=None, loop=None, cleanup = None, preload = None):
@@ -144,10 +153,11 @@ def start(setup=None, loop=None, cleanup = None, preload = None):
     try:
       if loop is not None:
         loop()
-      ticks_st = ticks_us()
-      while True:
-        if ticks_us() - ticks_st > 1000:
+      if not frame_counter():
+        if cleanup is not None:
+          cleanup()
           break
+      
     except (Exception, KeyboardInterrupt) as e:
       if cleanup is not None:
         cleanup()

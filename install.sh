@@ -1,15 +1,19 @@
 #!/bin/bash
 #
-# Install mrequests to a MicroPython board using mpremote
+# Install Arduino Runtime to a MicroPython board using mpremote.
+# This script accepts an optional argument to compile .py files to .mpy.
+# Simply run the script with the optional argument:
+#
+# ./install.sh mpy
 
-MODULES=('__init__.py' 'amp_fields.py' 'arduino_utils.py' 'common.py' 'network_utils.py')
 
-SRCDIR="arduino"
-LIBDIR="lib"
 PKGDIR="arduino"
+SRCDIR=$PKGDIR
+LIBDIR="lib"
 
-# Create the root lib folder
-# Will generate an error in the output if it already exists
+# File system operations such as "mpremote mkdir" or "mpremote rm"
+# will generate an error if the folder exists or if the file does not exist.
+# These errors can be ignored.
 # 
 # Traceback (most recent call last):
 #   File "<stdin>", line 2, in <module>
