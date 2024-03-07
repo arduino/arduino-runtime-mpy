@@ -86,7 +86,7 @@ for filename in $SRCDIR/*; do
     source_extension="${f_name##*.}"
     destination_extension=$source_extension
 
-    if [ "$ext" = "mpy" ] && [ "$source_extention" = "py" ]; then
+    if [[ "$ext" == "mpy" && "$source_extension" == "py" ]]; then
       echo "Compiling $SRCDIR/$f_name to $SRCDIR/${f_name%.*}.$ext"
       mpy-cross "$SRCDIR/$f_name"
       destination_extension=$ext
