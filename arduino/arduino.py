@@ -123,9 +123,6 @@ def copy_sketch(source_path = '', destination_path = '.', name = None, overwrite
 # the following methods are just for testing
 # will produce output when this module is run as __main__
 def preload():
-  print()
-  print()
-  print()
   print('preload test')
 
 def setup():
@@ -136,11 +133,7 @@ def loop():
   delay(1000)
 
 def cleanup():
-  print()
   print('cleanup test')
-  print()
-  print()
-
 
 # RUNTIME
 def start(setup=None, loop=None, cleanup = None, preload = None):
