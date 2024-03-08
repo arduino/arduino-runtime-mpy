@@ -13,6 +13,10 @@ frame_count = 0
 OUTPUT = Pin.OUT
 INPUT = Pin.IN
 
+# Blocking by default to allow threads to run
+# If you're not using threads, you can set this to True
+NON_BLOCKING = False
+
 HIGH = 1
 LOW = 0
 
@@ -149,6 +153,8 @@ def start(setup=None, loop=None, cleanup = None, preload = None):
       try:
         if loop is not None:
           loop()
+        if not NON_BLOCKING:
+          sleep_ms(1)
         
       except (Exception, KeyboardInterrupt) as e:
         if cleanup is not None:
