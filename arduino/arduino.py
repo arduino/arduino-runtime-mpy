@@ -87,7 +87,7 @@ def delay(_ms):
 
 # HELPERS
 
-def get_template():
+def get_template_path():
   return '/'.join(__file__.split('/')[:-1]) + '/template.tpl'
 
 
@@ -103,7 +103,7 @@ def create_sketch(sketch_name = None, destination_path = '.', overwrite = False,
   except OSError:
     pass
   
-  template_path = get_template() if source_path is None else source_path
+  template_path = get_template_path() if source_path is None else source_path
   template_sketch = open(template_path, 'r')
   new_sketch_path = f'{destination_path}/{sketch_name}.py'
 
