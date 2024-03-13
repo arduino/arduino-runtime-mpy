@@ -139,24 +139,16 @@ def start(setup=None, loop=None, cleanup = None, preload = None):
     setup()
   try:
     while True:
-      try:
-        if loop is not None:
-          loop()
-        if not NON_BLOCKING:
-          sleep_ms(1)
-        
-      except (Exception, KeyboardInterrupt) as e:
-        if cleanup is not None:
-          cleanup()
-        if not isinstance(e, KeyboardInterrupt):
-          raise e
-        else:
-          break
+      if loop is not None:
+        loop()
+      if not NON_BLOCKING:
+        sleep_ms(1)
   except (Exception, KeyboardInterrupt) as e:
-        if cleanup is not None:
-          cleanup()
-        if not isinstance(e, KeyboardInterrupt):
-          raise e
+    if cleanup is not None:
+      cleanup()
+    if not isinstance(e, KeyboardInterrupt):
+      raise e
+
 
 if __name__ == '__main__':
   start(setup, loop, cleanup)
