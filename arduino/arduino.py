@@ -122,8 +122,6 @@ def copy_sketch(source_path = '', destination_path = '.', name = None, overwrite
 
 # the following methods are just for testing
 # will produce output when this module is run as __main__
-def preload():
-  print('preload test')
 
 def setup():
   print('setup test')
@@ -137,8 +135,6 @@ def cleanup():
 
 # RUNTIME
 def start(setup=None, loop=None, cleanup = None, preload = None):
-  if preload is not None:
-    preload()
   if setup is not None:
     setup()
   try:
@@ -163,4 +159,4 @@ def start(setup=None, loop=None, cleanup = None, preload = None):
           raise e
 
 if __name__ == '__main__':
-  start(setup = setup, loop = loop, cleanup = cleanup, preload = preload)
+  start(setup, loop, cleanup)
