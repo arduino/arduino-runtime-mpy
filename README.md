@@ -2,9 +2,141 @@
 
 A module to simplify and help writing MicroPython programs using the setup()/loop() paradigm.
 
+This module also wraps machine functions in easy-to-use methods
+
+## Install
+
+### mip (MicroPython Package Manager)
+This is the recommended method for boards which can connect to Internet.
+Run the following MicroPython script using your favourite editor
+
+```Python
+import network
+import mip
+import time
+
+SSID = 'YOUR WIFI NETWORK NAME (must be 2.4GHz)'
+PWD = 'YOUR WIFI PASSWORD'
+
+interface = network.WLAN(network.STA_IF)
+interface.active(False)
+time.sleep(0.1)
+interface.active(True)
+
+def connect(ssid, pwd):
+  interface.connect(ssid, pwd)
+  # Network Connection Progress
+  max_dot_cols = 20
+  dot_col = 0
+  print()
+  print(f"Connecting to {ssid}")
+  while not interface.isconnected():
+    if(dot_col % max_dot_cols == 0):
+        print()
+    print('.', end = '')
+    dot_col +=1
+    time.sleep_ms(100)
+  print() 
+  print(f'{"C" if interface.isconnected() else "NOT c"}onnected to network')
+
+connect(SSID, PWD)
+mip.install('github:arduino/arduino-runtime-mpy')
+
+```
+### mpremote mip
+You will need to have Python and `mpremote` installed on your system, [follow these instructions](https://docs.micropython.org/en/latest/reference/mpremote.html).
+Open a shell and run the following command:
+
+```shell
+mpremote mip install "github:arduino/arduino-runtime-mpy"
+```
+
+### Manually
+Copy the folder `arduino` and its content into your board's `lib` folder using your preferred method
+
+
+
+## Usage
+
+The structure of an Arduino MicroPython program will look as follows:
+
+```Python
+from arduino import *
+
+def setup():
+  print('starting my program')
+
+def loop():
+  print('loop')
+  delay(1000)
+
+start(setup, loop)
+```
+
+The program above will define two main methods: `setup()` and `loop()`.
+`setup()` will be invoked once at the execution of the program, while `loop()` will be invoked over and over until the program is stopped.
+The stop condition might be caused by a system error or by manual trigger from the user during development/test.
+
+The `start()` command is what causes the program to run, and is to be considered of high value in the MicroPython world.
+While traditionally the code above would be written as follows
+
+```Python
+from time import sleep_ms
+
+print('starting my program)
+
+while True:
+  print('loop')
+  sleep_ms(1000)
+```
+
+Using the Arduino Runtime for MicroPython introduces some nice features, like the possibility to wrap user code in functions which can be tested during learning/development using the REPL.
+Running the Arduino formatted code, omitting the `start()` command, would create the functions and every variable or object in the MicroPython board and allow the user to simply change a variable, set the property of an object and simply call `loop()` to see the results of their changes.
+A more interactive approach to learning/testing/debugging.
+
+We also introduce a new way of cleaning up and or resetting variables, objects, timers, leveraging a `cleanup()` method which will be called when the program is stopped or a system error happens which stops the execution of the program.
+Please refer to the example "nano_esp32_advanced.py".
+
+This brings the implemented runtime commands to the three described below
+
+### setup()
+
+Is run _once_ and should contain initialisation code.
+
+### loop()
+
+Is run indefinitely until the program stops.
+
+### cleanup()
+
+Is run _once_ when the program stops. This happen either when the user manually stops the execution of the program or if an error in the user code is thrown.
+It should contain code such as resetting the value of variables, stopping timers, causing threads to stop running.
+
+A `cleanup()` enhanced version of our initial program would look like this
+
+```Python
+from arduino import *
+
+def setup():
+  print('starting my program')
+
+def loop():
+  print('loop')
+  delay(1000)
+
+def cleanup():
+  print('cleanup')
+
+start(setup, loop, cleanup)
+```
+
+> [!NOTE]
+> `cleanup()` is not invoked when the program stops because the hardware reset button on the board was pressed.
+
+
 ## Commands
 
-This module also wraps machine functions in easy-to-use methods
+Here's a list of commands and wrappers that can be used in your Arduino MicroPython program.
 
 ### pin_mode(PIN_NUMBER/ID, MODE)
 
@@ -85,83 +217,6 @@ It is to be considered a code-blocking command.
 ```Python
 delay(1000) # Delay the execution for 1 second
 ```
-
-## Usage
-
-The structure of an Arduino MicroPython program will look as follows:
-
-```Python
-from arduino import *
-
-def setup():
-  print('starting my program')
-
-def loop():
-  print('loop')
-  delay(1000)
-
-start(setup, loop)
-```
-
-The program above will define two main methods: `setup()` and `loop()`.
-`setup()` will be invoked once at the execution of the program, while `loop()` will be invoked over and over until the program is stopped.
-The stop condition might be caused by a system error or by manual trigger from the user during development/test.
-
-The `start()` command is what causes the program to run, and is to be considered of high value in the MicroPython world.
-While traditionally the code above would be written as follows
-
-```Python
-from time import sleep_ms
-
-print('starting my program)
-
-while True:
-  print('loop')
-  sleep_ms(1000)
-```
-
-Using the Arduino Runtime for MicroPython introduces some nice features, like the possibility to wrap user code in functions which can be tested during learning/development using the REPL.
-Running the Arduino formatted code, omitting the `start()` command, would create the functions and every variable or object in the MicroPython board and allow the user to simply change a variable, set the property of an object and simply call `loop()` to see the results of their changes.
-A more interactive approach to learning/testing/debugging.
-
-We also introduce a new way of cleaning up and or resetting variables, objects, timers, leveraging a `cleanup()` method which will be called when the program is stopped or a system error happens which stops the execution of the program.
-Please refer to the example "nano_esp32_advanced.py".
-
-This brings the implemented runtime commands to the three described below
-
-### setup()
-
-Is run _once_ and should contain initialisation code.
-
-### loop()
-
-Is run indefinitely until the program stops.
-
-### cleanup()
-
-Is run _once_ when the program stops. This happen either when the user manually stops the execution of the program or if an error in the user code is thrown.
-It should contain code such as resetting the value of variables, stopping timers, causing threads to stop running.
-
-A `cleanup()` enchanced version of our initial program would look like this
-
-```Python
-from arduino import *
-
-def setup():
-  print('starting my program')
-
-def loop():
-  print('loop')
-  delay(1000)
-
-def cleanup():
-  print('cleanup')
-
-start(setup, loop)
-```
-
-> [!NOTE]
-> `cleanup()` does not get called when the program stops because the hardware button on the board was pressed.
 
 ## Utilities
 
