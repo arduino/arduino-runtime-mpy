@@ -2,8 +2,8 @@
   "urls": [
     ["arduino/__init__.py", "github:arduino/arduino-runtime-mpy/arduino/__init__.py"],
     ["arduino/arduino.py", "github:arduino/arduino-runtime-mpy/arduino/arduino.py"],
-    ["arduino/template.py", "github:arduino/arduino-runtime-mpy/arduino/template.py"]
+    ["arduino/template.tpl", "github:arduino/arduino-runtime-mpy/arduino/template.tpl"]
   ],
   "deps": [],
-  "version": "0.2.0"
+  "version": "0.1.0"
 }
