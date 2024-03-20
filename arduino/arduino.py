@@ -20,53 +20,53 @@ HIGH = 1 # Voltage level HIGH
 LOW = 0 # Voltage level LOW
 
 # UTILITY
-def map(x, in_min, in_max, out_min, out_max):
-  return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+def map(x, in_min, in_max, out_min, out_max) -> int | float:
+  return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min
 
-def mapi(x, in_min, in_max, out_min, out_max):
+def mapi(x, in_min, in_max, out_min, out_max) -> int:
   return int(map(x, in_min, in_max, out_min, out_max))
 
-def random(low, high=None):
+def random(low, high=None) -> int:
   if high == None:
     return randrange(0, low)
   else:
     return randrange(low, high)
 
-def constrain(val, min_val, max_val):
+def constrain(val, min_val, max_val) -> int | float:
   return min(max_val, max(min_val, val))
 
-def lerp(start, stop, amount):
+def lerp(start, stop, amount) -> int | float:
   return start + amount * (stop - start)
 
 # IO
-def pin_mode(_pin, _mode):
+def pin_mode(_pin, _mode) -> Pin:
   return Pin(_pin, _mode)
 
-def pinMode(_pin, _mode):
+def pinMode(_pin, _mode) -> Pin:
   return pin_mode(_pin, _mode)
 
-def digital_write(_pin, _signal):
+def digital_write(_pin, _signal) -> None:
   p = Pin(_pin, Pin.OUT)
   p.value(_signal)
 
-def digitalWrite(_pin, _signal):
+def digitalWrite(_pin, _signal) -> None:
   return digital_write(_pin, _signal)
 
-def digital_read(_pin):
+def digital_read(_pin) -> int:
   p = Pin(_pin, Pin.IN)
   return p.value()
 
-def digitalRead(_pin):
+def digitalRead(_pin) -> int:
   return digital_read(_pin)
 
-def analog_read(_pin):
+def analog_read(_pin) -> int:
   p = ADC(Pin(_pin))
   return p.read_u16()
 
-def analogRead(_pin):
+def analogRead(_pin) -> int:
   return analog_read(_pin)
 
-def analog_write(_pin, _duty_cycle):
+def analog_write(_pin, _duty_cycle) -> None:
   p = PWM(Pin(_pin))
   p.freq(1000)
   duty = mapi(_duty_cycle, 0, 255, 0, 1023)
@@ -75,10 +75,10 @@ def analog_write(_pin, _duty_cycle):
     p.duty(0)
     p.deinit()
 
-def analogWrite(_pin, _duty_cycle):
+def analogWrite(_pin, _duty_cycle) -> None:
   return analog_write(_pin, _duty_cycle)
 
-def delay(_ms):
+def delay(_ms) -> None:
   sleep_ms(_ms)
 
 
