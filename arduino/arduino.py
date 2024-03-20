@@ -9,7 +9,6 @@ from random import randrange
 from math import sin, cos, radians, floor, ceil
 from sys import exit
 
-frame_count = 0
 OUTPUT = Pin.OUT
 INPUT = Pin.IN
 
@@ -20,7 +19,6 @@ NON_BLOCKING = False
 HIGH = 1
 LOW = 0
 
-arduino_analog_inverted = False
 
 # UTILITY
 def map(x, in_min, in_max, out_min, out_max):
