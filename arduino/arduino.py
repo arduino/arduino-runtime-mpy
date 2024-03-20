@@ -16,9 +16,8 @@ INPUT = Pin.IN
 # If you're not using threads, you can set this to True
 NON_BLOCKING = False
 
-HIGH = 1
-LOW = 0
-
+HIGH = 1 # Voltage level HIGH
+LOW = 0 # Voltage level LOW
 
 # UTILITY
 def map(x, in_min, in_max, out_min, out_max):
@@ -87,7 +86,6 @@ def delay(_ms):
 
 def get_template_path():
   return '/'.join(__file__.split('/')[:-1]) + '/template.tpl'
-
 
 def create_sketch(sketch_name = None, destination_path = '.', overwrite = False, source_path = None):
 
