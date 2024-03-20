@@ -63,11 +63,10 @@ def analogRead(_pin) -> int:
 
 def analog_write(_pin, _duty_cycle) -> None:
   p = PWM(Pin(_pin))
-  p.freq(1000)
-  duty = mapi(_duty_cycle, 0, 255, 0, 1023)
-  p.duty(floor(duty))
+  duty = mapi(_duty_cycle, 0, 255, 0, 65535)
+  p.duty_u16(floor(duty))
+
   if(_duty_cycle == 0):
-    p.duty(0)
     p.deinit()
 
 def analogWrite(_pin, _duty_cycle) -> None:
