@@ -118,19 +118,6 @@ def copy_sketch(source_path = '', destination_path = '.', name = None, overwrite
   name = name or 'main'
   return create_sketch(sketch_name = name, destination_path = destination_path, overwrite = overwrite, source_path = source_path)
 
-# the following methods are just for testing
-# will produce output when this module is run as __main__
-
-def setup():
-  print('setup test')
-
-def loop():
-  print('loop test')
-  delay(1000)
-
-def cleanup():
-  print('cleanup test')
-
 # RUNTIME
 def start(setup=None, loop=None, cleanup = None, preload = None):
   if setup is not None:
@@ -146,7 +133,3 @@ def start(setup=None, loop=None, cleanup = None, preload = None):
       cleanup()
     if not isinstance(e, KeyboardInterrupt):
       raise e
-
-
-if __name__ == '__main__':
-  start(setup, loop, cleanup)
