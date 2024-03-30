@@ -2,7 +2,10 @@
   "urls": [
     ["arduino/__init__.py", "github:arduino/arduino-runtime-mpy/arduino/__init__.py"],
     ["arduino/arduino.py", "github:arduino/arduino-runtime-mpy/arduino/arduino.py"],
-    ["arduino/template.tpl", "github:arduino/arduino-runtime-mpy/arduino/template.tpl"]
+    ["arduino/template.tpl", "github:arduino/arduino-runtime-mpy/arduino/template.tpl"],
+    ["arduino/examples/00_basic.py", "github:arduino/arduino-runtime-mpy/arduino/examples/00_basic.py"],
+    ["arduino/examples/01_arduino_blink.py", "github:arduino/arduino-runtime-mpy/arduino/examples/01_arduino_blink.py"],
+    ["arduino/examples/02_nano_esp32_advanced.py", "github:arduino/arduino-runtime-mpy/arduino/examples/02_nano_esp32_advanced.py"]
   ],
   "deps": [],
   "version": "0.1.0"
