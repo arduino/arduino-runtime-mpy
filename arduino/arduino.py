@@ -82,7 +82,6 @@ def get_template_path():
   return '/'.join(__file__.split('/')[:-1]) + '/template.tpl'
 
 def create_sketch(sketch_name = None, destination_path = '.', overwrite = False, source_path = None):
-
   if sketch_name is None:
     sketch_name = 'main'
   new_sketch_path = f'{destination_path}/{sketch_name}.py'

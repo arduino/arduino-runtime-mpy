@@ -1,14 +1,22 @@
 #!/bin/bash
 #
-# Install Arduino Runtime to a MicroPython board using mpremote.
+# MicroPython Package Installer
+# Created by: Ubi de Feo and Sebastian Romero
+# 
+# Installs a MicroPython Package to a board using mpremote.
+# 
 # This script accepts an optional argument to compile .py files to .mpy.
 # Simply run the script with the optional argument:
 #
 # ./install.sh mpy
 
+# Name to display during installation
 PKGNAME="Arduino Runtime for MicroPython"
+# Destination directory for the package on the board
 PKGDIR="arduino"
+# Source directory for the package on the host
 SRCDIR=$PKGDIR
+# Board library directory
 LIBDIR="lib"
 
 # File system operations such as "mpremote mkdir" or "mpremote rm"
@@ -86,6 +94,8 @@ for filename in $SRCDIR/*; do
     source_extension="${f_name##*.}"
     destination_extension=$source_extension
 
+    # If examples are distributed within the package
+    # ensures they are copied but not compiled to .mpy
     if [[ -d $filename && "$f_name" == "examples" ]]; then
       if ! directory_exists "/${LIBDIR}/${PKGDIR}/examples"; then
         echo "Creating $LIBDIR/$PKGDIR/examples on board"
