@@ -111,6 +111,8 @@ def copy_sketch(source_path = '', destination_path = '.', name = None, overwrite
 
 # RUNTIME
 def start(setup=None, loop=None, cleanup = None, preload = None):
+  if preload is not None:
+    preload()
   if setup is not None:
     setup()
   try:
