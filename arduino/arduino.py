@@ -15,11 +15,11 @@ HIGH = 1 # Voltage level HIGH
 LOW = 0 # Voltage level LOW
 
 # UTILITY
-def map(x, in_min, in_max, out_min, out_max) -> int | float:
+def mapf(x, in_min, in_max, out_min, out_max) -> int | float:
   return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min
 
 def mapi(x, in_min, in_max, out_min, out_max) -> int:
-  return int(map(x, in_min, in_max, out_min, out_max))
+  return int(mapf(x, in_min, in_max, out_min, out_max))
 
 def random(low, high=None) -> int:
   if high == None:
@@ -75,6 +75,10 @@ def analogWrite(_pin, _duty_cycle) -> None:
 def delay(_ms) -> None:
   sleep_ms(_ms)
 
+
+def no_sleep() -> None:
+  global NON_BLOCKING
+  NON_BLOCKING = True
 
 # HELPERS
 

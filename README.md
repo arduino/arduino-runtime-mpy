@@ -7,6 +7,7 @@ This module also wraps machine functions in easy-to-use methods.
 ## Installation
 
 ### mip (MicroPython Package Manager)
+
 This is the recommended method for boards which can connect to Internet.
 Run the following MicroPython script using your favourite editor:
 
@@ -43,7 +44,9 @@ connect(SSID, PWD)
 mip.install('github:arduino/arduino-runtime-mpy')
 
 ```
+
 ### mpremote mip
+
 You will need to have Python and `mpremote` installed on your system, [follow these instructions](https://docs.micropython.org/en/latest/reference/mpremote.html) to do so.
 
 Open a shell and run the following command:
@@ -53,8 +56,8 @@ mpremote mip install "github:arduino/arduino-runtime-mpy"
 ```
 
 ### Manual Installation
-Copy the folder `arduino` and its content into your board's `lib` folder using your preferred method.
 
+Copy the folder `arduino` and its content into your board's `lib` folder using your preferred method.
 
 ## Usage
 
@@ -219,10 +222,10 @@ delay(1000) # Delay the execution for 1 second
 
 Some utility methods are provided and are still in development:
 
-* `map(x, in_min, in_max, out_min, out_max)`
+* `mapf(x, in_min, in_max, out_min, out_max)`
   Remaps the value `x` from its input range to an output range
 * `mapi(x, in_min, in_max, out_min, out_max)`
-  same as `map` but always returns an integer
+  same as `mapf` but always returns an integer
 * `random(low, high=None)`
   Returns a random number between `0` and `low` - 1 if no `high` is provided, otherwise a value between `low` and `high` - 1
 * `constrain(val, min_val, max_val)`
@@ -248,6 +251,6 @@ create_sketch('main')
 
 The method returns the Python file's full path.
 
-### copy_sketch(source_path = '', destination_path = '.', name = None, overwrite = False):
+### copy_sketch(source_path = '', destination_path = '.', name = None, overwrite = False)
 
 Wraps `create_sketch()` and provides a shortcut to copy a file to another path.
