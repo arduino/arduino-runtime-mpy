@@ -222,10 +222,10 @@ delay(1000) # Delay the execution for 1 second
 
 Some utility methods are provided and are still in development:
 
-* `mapf(x, in_min, in_max, out_min, out_max)`
+* `map_float(x, in_min, in_max, out_min, out_max)`
   Remaps the value `x` from its input range to an output range
-* `mapi(x, in_min, in_max, out_min, out_max)`
-  same as `mapf` but always returns an integer
+* `map_int(x, in_min, in_max, out_min, out_max)`
+  same as `map_float` but always returns an integer
 * `random(low, high=None)`
   Returns a random number between `0` and `low` - 1 if no `high` is provided, otherwise a value between `low` and `high` - 1
 * `constrain(val, min_val, max_val)`
