@@ -223,7 +223,7 @@ delay(1000) # Delay the execution for 1 second
 Some utility methods are provided and are still in development:
 
 * `map_float(x, in_min, in_max, out_min, out_max)`
-  Remaps the value `x` from its input range to an output range
+  Remaps the value `x` from its input range to an output range as a float
 * `map_int(x, in_min, in_max, out_min, out_max)`
   same as `map_float` but always returns an integer
 * `random(low, high=None)`
