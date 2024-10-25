@@ -15,10 +15,10 @@ HIGH = 1 # Voltage level HIGH
 LOW = 0 # Voltage level LOW
 
 # UTILITY
-def mapf(x, in_min, in_max, out_min, out_max) -> int | float:
+def map_float(x, in_min, in_max, out_min, out_max) -> int | float:
   return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min
 
-def mapi(x, in_min, in_max, out_min, out_max) -> int:
+def map_int(x, in_min, in_max, out_min, out_max) -> int:
   return int(mapf(x, in_min, in_max, out_min, out_max))
 
 def random(low, high=None) -> int:
