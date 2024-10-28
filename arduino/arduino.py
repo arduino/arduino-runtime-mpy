@@ -15,11 +15,11 @@ HIGH = 1 # Voltage level HIGH
 LOW = 0 # Voltage level LOW
 
 # UTILITY
-def map(x, in_min, in_max, out_min, out_max) -> int | float:
+def map_float(x, in_min, in_max, out_min, out_max) -> int | float:
   return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min
 
-def mapi(x, in_min, in_max, out_min, out_max) -> int:
-  return int(map(x, in_min, in_max, out_min, out_max))
+def map_int(x, in_min, in_max, out_min, out_max) -> int:
+  return int(map_float(x, in_min, in_max, out_min, out_max))
 
 def random(low, high=None) -> int:
   if high == None:
@@ -63,7 +63,7 @@ def analogRead(_pin) -> int:
 
 def analog_write(_pin, _duty_cycle) -> None:
   p = PWM(Pin(_pin))
-  duty = mapi(_duty_cycle, 0, 255, 0, 65535)
+  duty = map_int(_duty_cycle, 0, 255, 0, 65535)
   p.duty_u16(floor(duty))
 
   if(_duty_cycle == 0):
@@ -82,7 +82,6 @@ def get_template_path():
   return '/'.join(__file__.split('/')[:-1]) + '/template.tpl'
 
 def create_sketch(sketch_name = None, destination_path = '.', overwrite = False, source_path = None):
-
   if sketch_name is None:
     sketch_name = 'main'
   new_sketch_path = f'{destination_path}/{sketch_name}.py'
@@ -112,6 +111,8 @@ def copy_sketch(source_path = '', destination_path = '.', name = None, overwrite
 
 # RUNTIME
 def start(setup=None, loop=None, cleanup = None, preload = None):
+  if preload is not None:
+    preload()
   if setup is not None:
     setup()
   try:
