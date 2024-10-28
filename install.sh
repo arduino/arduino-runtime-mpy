@@ -12,7 +12,7 @@
 
 # Name to display during installation
 PKGNAME="Arduino Runtime for MicroPython"
-# Destination directory for the package on the board
+# Destination directory for the package on the board inside the library directory
 PKGDIR="arduino"
 # Source directory for the package on the host
 SRCDIR=$PKGDIR
