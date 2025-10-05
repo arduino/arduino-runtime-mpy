@@ -9,7 +9,7 @@ class KeyHandler:
   ESC = "esc"
   ENTER = "enter"
   SPACE = " "
-  
+  ESCAPE_SEQUENCE_TIMEOUT = 0.01
   def __init__(self):
     self._key_events = {}
   
@@ -28,7 +28,7 @@ class KeyHandler:
     return True
   
   def _key_is_down(self):
-    while stdin in select.select([stdin], [], [], 0)[0]:
+    if stdin in select.select([stdin], [], [], 0)[0]:
       ch = stdin.read(1)
       
       if ch == '\n' or ch == '\r':
@@ -36,10 +36,10 @@ class KeyHandler:
       
       if ch == '\x1b':
         # Wait briefly for escape sequence
-        if stdin in select.select([stdin], [], [], 0.01)[0]:
+        if stdin in select.select([stdin], [], [], KeyHandler.ESCAPE_SEQUENCE_TIMEOUT)[0]:
           next_ch = stdin.read(1)
           if next_ch == '[':
-            if stdin in select.select([stdin], [], [], 0.01)[0]:
+            if stdin in select.select([stdin], [], [], KeyHandler.ESCAPE_SEQUENCE_TIMEOUT)[0]:
               arrow_ch = stdin.read(1)
               if arrow_ch == 'A':
                 return self.UP
@@ -54,11 +54,14 @@ class KeyHandler:
       return ch
     
     return None
-  
+    
   def read_keys(self):
-    detected_key = self._key_is_down()
-    if detected_key and detected_key in self._key_events:
-      self._key_events[detected_key].trigger()
+    while True:
+      detected_key = self._key_is_down()
+      if detected_key is None:
+        break
+      if detected_key in self._key_events:
+        self._key_events[detected_key].trigger()
 
 
 class KeyEvent:
