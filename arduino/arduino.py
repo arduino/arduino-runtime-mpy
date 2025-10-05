@@ -112,6 +112,14 @@ def copy_sketch(source_path = '', destination_path = '.', name = None, overwrite
 # RUNTIME
 
 # KEY EVENTS IN REPL
+KEY_UP = KeyHandler.UP
+KEY_DOWN = KeyHandler.DOWN
+KEY_LEFT = KeyHandler.LEFT
+KEY_RIGHT = KeyHandler.RIGHT
+KEY_ESC = KeyHandler.ESC
+KEY_ENTER = KeyHandler.ENTER
+KEY_SPACE = KeyHandler.SPACE
+
 _key_handler = KeyHandler()
 def add_key_listener(key, callback, *params):
   _key_handler.add_key_listener(key, callback, *params)

@@ -7,6 +7,8 @@ class KeyHandler:
   LEFT = "arrow_left"
   RIGHT = "arrow_right"
   ESC = "esc"
+  ENTER = "enter"
+  SPACE = " "
   
   def __init__(self):
     self._key_events = {}
@@ -27,6 +29,9 @@ class KeyHandler:
   def _key_is_down(self):
     while stdin in select.select([stdin], [], [], 0)[0]:
       ch = stdin.read(1)
+      
+      if ch == '\n' or ch == '\r':
+        return self.ENTER
       
       if ch == '\x1b':
         # Wait briefly for escape sequence
