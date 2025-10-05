@@ -25,6 +25,7 @@ class KeyHandler:
 
   def remove_all_listeners(self):
     self._key_events.clear()
+    return True
   
   def _key_is_down(self):
     while stdin in select.select([stdin], [], [], 0)[0]:

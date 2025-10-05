@@ -126,7 +126,7 @@ def add_key_listener(key, callback, *params):
 
 def remove_key_listener(key = None):
   if key is None:
-    _key_handler.remove_all_listeners()
+     return _key_handler.remove_all_listeners()
   return _key_handler.remove_key_listener(key)
 
 def read_keys():
