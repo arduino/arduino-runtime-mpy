@@ -1,13 +1,22 @@
+# Keyboard use in REPL
+# by Ubi de Feo
+#
+# This demo code shows how to implement interactive behaviour in REPL.
+# When running this code in a REPL session, using keys can trigger actions.
+# 
+# Simply add a listener for a key (KEY_UP, KEY_DOWN, ENTER, ESC, etc.) and a callback.
+# Supports variable arguments which must be handled by the callback (see setup())
+
 from arduino import *
 
 item_selected = None
 
 def inventory(open = True):
   if open:
-    print('- showing inventory -')
-    print('1. Potion - Get more energy')
-    print('2. Key - Open a door')
-    print('3. Sword - Defend from enemy')
+    print('- open inventory -')
+    print('(a) Potion - Get more energy')
+    print('(b) Key - Open a door')
+    print('(c) Sword - Defend from enemy')
   else:
     print('- closing inventory -')
 
@@ -34,7 +43,13 @@ def setup():
   add_key_listener('a', select_item, 'potion', 'get more energy')
   add_key_listener('b', select_item, 'key', 'open a door')
   add_key_listener('c', select_item, 'sword', 'defend from enemy')
-  print('Start game...')
+  print('starting...')
+  print('Arrows: move')
+  print('Enter: open inventory')
+  print('ESC: close inventory')
+  print('a: select potion')
+  print('b: select key')
+  print('c: select sword')
 
 def loop():
   delay(10)
