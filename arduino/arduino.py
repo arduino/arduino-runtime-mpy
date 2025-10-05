@@ -2,7 +2,7 @@ from machine import Pin, ADC, PWM
 from time import sleep_ms, ticks_us
 from random import randrange
 from math import sin, cos, radians, floor, ceil
-from sys import exit
+from .key_handler import KeyHandler
 
 OUTPUT = Pin.OUT
 INPUT = Pin.IN
@@ -110,13 +110,32 @@ def copy_sketch(source_path = '', destination_path = '.', name = None, overwrite
   return create_sketch(sketch_name = name, destination_path = destination_path, overwrite = overwrite, source_path = source_path)
 
 # RUNTIME
+
+# KEY EVENTS IN REPL
+_key_handler = KeyHandler()
+def add_key_listener(key, callback, *params):
+  _key_handler.add_key_listener(key, callback, *params)
+
+def remove_key_listener(key = None):
+  if key is None:
+    _key_handler.remove_all_listeners()
+  return _key_handler.remove_key_listener(key)
+
+def read_keys():
+  _key_handler.read_keys()
+
+
+# RUN LOOP
+
 def start(setup=None, loop=None, cleanup = None, preload = None):
+  remove_key_listener()
   if preload is not None:
     preload()
   if setup is not None:
     setup()
   try:
     while True:
+      read_keys()
       if loop is not None:
         loop()
       if not NON_BLOCKING:
@@ -126,3 +145,29 @@ def start(setup=None, loop=None, cleanup = None, preload = None):
       cleanup()
     if not isinstance(e, KeyboardInterrupt):
       raise e
+
+# The following functions are used for testing only
+# and provide a faux implementation of the user's functions
+def preload():
+  print('preload')
+
+def setup():
+  add_key_listener('arrow_up', print, 'key:', 'up')
+  add_key_listener('arrow_down', print, 'key:', 'down')
+  add_key_listener('arrow_left', print, 'key:', 'left')
+  add_key_listener('arrow_right', print, 'key:', 'right')
+  print('setup')
+
+def loop():
+  print('loop')
+  delay(100)
+
+def cleanup():
+  print('cleanup')
+
+
+def test_fn():
+  start(setup, loop, cleanup, preload)
+
+if __name__ == '__main__':
+  test_fn()
