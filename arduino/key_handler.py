@@ -28,7 +28,7 @@ class KeyHandler:
     return True
   
   def _key_is_down(self):
-    if stdin in select.select([stdin], [], [], 0)[0]:
+    if stdin in select.select([stdin], [], [], KeyHandler.ESCAPE_SEQUENCE_TIMEOUT)[0]:
       ch = stdin.read(1)
       
       if ch == '\n' or ch == '\r':

@@ -6,10 +6,10 @@ def preload():
   print('preload')
 
 def setup():
-  add_key_listener('arrow_up', print, 'key:', 'up')
-  add_key_listener('arrow_down', print, 'key:', 'down')
-  add_key_listener('arrow_left', print, 'key:', 'left')
-  add_key_listener('arrow_right', print, 'key:', 'right')
+  add_key_listener(KEY_UP, print, 'key:', 'up')
+  add_key_listener(KEY_DOWN, print, 'key:', 'down')
+  add_key_listener(KEY_LEFT, print, 'key:', 'left')
+  add_key_listener(KEY_RIGHT, print, 'key:', 'right')
   print('setup')
 
 def loop():
