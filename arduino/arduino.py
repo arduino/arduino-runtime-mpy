@@ -2,7 +2,7 @@ from machine import Pin, ADC, PWM
 from time import sleep_ms, ticks_us
 from random import randrange
 from math import sin, cos, radians, floor, ceil
-from sys import exit
+from .key_handler import KeyHandler
 
 OUTPUT = Pin.OUT
 INPUT = Pin.IN
@@ -110,13 +110,40 @@ def copy_sketch(source_path = '', destination_path = '.', name = None, overwrite
   return create_sketch(sketch_name = name, destination_path = destination_path, overwrite = overwrite, source_path = source_path)
 
 # RUNTIME
+
+# KEY EVENTS IN REPL
+KEY_UP = KeyHandler.UP
+KEY_DOWN = KeyHandler.DOWN
+KEY_LEFT = KeyHandler.LEFT
+KEY_RIGHT = KeyHandler.RIGHT
+KEY_ESC = KeyHandler.ESC
+KEY_ENTER = KeyHandler.ENTER
+KEY_SPACE = KeyHandler.SPACE
+
+_key_handler = KeyHandler()
+def add_key_listener(key, callback, *params):
+  _key_handler.add_key_listener(key, callback, *params)
+
+def remove_key_listener(key = None):
+  if key is None:
+     return _key_handler.remove_all_listeners()
+  return _key_handler.remove_key_listener(key)
+
+def read_keys():
+  _key_handler.read_keys()
+
+
+# RUN LOOP
+
 def start(setup=None, loop=None, cleanup = None, preload = None):
+  remove_key_listener()
   if preload is not None:
     preload()
   if setup is not None:
     setup()
   try:
     while True:
+      read_keys()
       if loop is not None:
         loop()
       if not NON_BLOCKING:
